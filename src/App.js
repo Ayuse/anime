@@ -13,7 +13,7 @@ function App() {
   //Declarinig variables
   let content = useRef(null);
   let images = useRef(null);
-  let tl = gsap.TimelineLite();
+  let tl = gsap.timeline();
 
   //Individual variables
 
@@ -30,41 +30,70 @@ function App() {
       duration: 0,
     });
 
-    //images animation
-    tl.from(imgLeft, 1, { y: 1200, ease: 'power3.ease' }, 'start')
+    // images animation
+    tl.fromTo(
+      imgLeft,
+      { y: 1200 },
+      { y: 0, ease: 'power3.ease', duration: 1 },
+      '<'
+    )
       .from(
         imgLeft.children,
-        2,
+
         {
           scale: 1.6,
           ease: 'power3.ease',
+          duration: 2,
         },
-        0.2
+        '<'
       )
-      .from(imgRight, 1, { y: 1200, ease: 'power3.ease' }, 0.2)
+      .from(
+        imgRight,
+        {
+          y: 1200,
+          ease: 'power3.ease',
+          duration: 1,
+
+          delay: 0.2,
+        },
+        '<'
+      )
       .from(
         imgRight.children,
-        2,
+
         {
           scale: 1.6,
           ease: 'power3.ease',
+          duration: 2,
+          delay: 0.2,
         },
-        0.2
+        '<'
       );
     //content animation
-    tl.staggerFrom(
+    tl.from(
       [firstHeadline.children, secondHeadline.children],
-      0.7,
+
       {
         y: 104,
         ease: 'power3.ease',
         delay: 0.8,
+        duration: 0.7,
+        stagger: 0.5,
       },
-      0.15,
-      'start'
+      '<'
     )
-      .from(contentP, 1, { y: 40, ease: 'power3.ease', opacity: 0 }, 1.2)
-      .from(btn, 1, { y: 20, ease: 'power3.ease', opacity: 0 }, 1.5);
+      .from(
+        contentP,
+
+        { y: 40, ease: 'power3.ease', duration: 1, opacity: 0 },
+        1.2
+      )
+      .from(
+        btn,
+
+        { y: 20, ease: 'power3.ease', duration: 1, opacity: 0 },
+        1.5
+      );
   });
 
   return (
